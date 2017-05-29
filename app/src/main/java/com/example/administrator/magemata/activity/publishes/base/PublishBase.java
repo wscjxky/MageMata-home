@@ -2,7 +2,9 @@ package com.example.administrator.magemata.activity.publishes.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -55,13 +57,12 @@ public class PublishBase extends AppCompatActivity{
         SimpleAdapter simplead;
         listems = new ArrayList<Map<String, Object>>();
         listem = new HashMap<String, Object>();
-        listem.put("logo",Constant.LOGO);
         listem.put("title", Constant.TITLE);
         listem.put("content",Constant.CONTENT);
         listem.put("time",Constant.TIME);
         listems.add(listem);
         simplead = new SimpleAdapter(context, listems,
-                R.layout.imgitem_base, new String[]{"logo","title", "content", "time"},
+                R.layout.imgitem_base, new String[]{"bitmap","title", "content", "time"},
                 new int[]{R.id.base_iv_logo, R.id.base_tv_title, R.id.base_tv_content,R.id.base_tv_time});
         simplead.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
@@ -82,13 +83,15 @@ public class PublishBase extends AppCompatActivity{
         SimpleAdapter simplead;
         listems = new ArrayList<Map<String, Object>>();
         listem = new HashMap<String, Object>();
-        listem.put("logo",Constant.LOGO);
+        Resources res=getResources();
+        Bitmap bmp= BitmapFactory.decodeResource(res,Constant.LOGO);
+        listem.put("bitmap",bmp);
         listem.put("title", "打印信息");
         listem.put("content","彩印，文件名");
         listem.put("time",Constant.TIME);
         listems.add(listem);
         simplead = new SimpleAdapter(context, listems,
-                R.layout.imgitem_base, new String[]{"logo","title", "content", "time"},
+                R.layout.imgitem_base, new String[]{"bitmap","title", "content", "time"},
                 new int[]{R.id.base_iv_logo, R.id.base_tv_title, R.id.base_tv_content,R.id.base_tv_time});
         simplead.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
@@ -105,11 +108,16 @@ public class PublishBase extends AppCompatActivity{
         return simplead;
     }
 
-    public void setListener(final Context context, ListView listView) {
+    public void setListener(final Context context, ListView listView, final List<Map<String, Object>> listems) {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                InfoBase.actionStart(context,Constant.TITLE,Constant.CONTENT);
+                Object type = listems.get(position).get("type");
+                Object price = listems.get(position).get("price");
+                if(type ==null)
+                    InfoBase.actionStart(context,listems.get(position).get("title").toString(),listems.get(position).get("content").toString(),(Bitmap)listems.get(position).get("bitmap"),null,null);
+                else
+                    InfoBase.actionStart(context,listems.get(position).get("title").toString(),listems.get(position).get("content").toString(),(Bitmap)listems.get(position).get("bitmap"),type.toString(),listems.get(position).get("price").toString());
             }
         });
     }

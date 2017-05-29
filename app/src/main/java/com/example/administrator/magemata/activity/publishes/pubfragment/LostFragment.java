@@ -2,7 +2,11 @@ package com.example.administrator.magemata.activity.publishes.pubfragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -29,6 +33,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.InputStream;
+import java.net.ResponseCache;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,7 +88,7 @@ public class LostFragment extends Fragment {
         Bitmap logo = event.getBitmap();
         String time = Constant.TIME;
         Map<String, Object> listem = new HashMap<String, Object>();
-        listem.put("logo", logo);
+        listem.put("bitmap", logo);
         listem.put("title", title);
         listem.put("content", content);
         listem.put("time",time);
@@ -115,13 +121,12 @@ public class LostFragment extends Fragment {
         Map<String, Object> listem;
         listems = new ArrayList<Map<String, Object>>();
         listem = new HashMap<String, Object>();
-        listem.put("logo", R.drawable.photo);
         listem.put("title", "校园卡丢了");
         listem.put("content","很急");
         listem.put("time", "2017-04-30 12:00:23");
         listems.add(listem);
         simplead = new SimpleAdapter(activity, listems,
-                R.layout.imgitem_base, new String[]{"logo","title", "content", "time"},
+                R.layout.imgitem_base, new String[]{"bitmap","title", "content", "time"},
                 new int[]{R.id.base_iv_logo, R.id.base_tv_title, R.id.base_tv_content,R.id.base_tv_time});
         simplead.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
@@ -139,7 +144,7 @@ public class LostFragment extends Fragment {
         baselv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                InfoBase.actionStart(activity,Constant.LOST_TITLE,Constant.LOST_CONTENT);
+                InfoBase.actionStart(activity,listems.get(position).get("title").toString(),listems.get(position).get("content").toString(),(Bitmap)listems.get(position).get("bitmap"),null,null);
             }
         });
 

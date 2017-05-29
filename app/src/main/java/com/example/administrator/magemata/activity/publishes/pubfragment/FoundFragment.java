@@ -91,13 +91,12 @@ public class FoundFragment extends Fragment {
         Map<String, Object> listem;
         listems = new ArrayList<Map<String, Object>>();
         listem = new HashMap<String, Object>();
-        listem.put("logo", R.drawable.photo);
         listem.put("title", "校园卡");
         listem.put("content","在某某地方捡到一张校园卡，请联系");
         listem.put("time", "2017-04-30 12:00:23");
         listems.add(listem);
         simplead = new SimpleAdapter(activity, listems,
-                R.layout.imgitem_base, new String[]{"logo","title", "content", "time"},
+                R.layout.imgitem_base, new String[]{"bitmap","title", "content", "time"},
                 new int[]{R.id.base_iv_logo, R.id.base_tv_title, R.id.base_tv_content,R.id.base_tv_time});
         simplead.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
@@ -115,7 +114,7 @@ public class FoundFragment extends Fragment {
         baselv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                InfoBase.actionStart(activity,Constant.LOST_TITLE,Constant.LOST_CONTENT);
+                InfoBase.actionStart(activity,listems.get(position).get("title").toString(),listems.get(position).get("content").toString(),(Bitmap)listems.get(position).get("bitmap"),null,null);
             }
         });
 

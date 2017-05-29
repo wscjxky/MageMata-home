@@ -45,12 +45,16 @@ public class  UsedActivity extends PublishBase {
     public void onMessageEvent(ImageMessage event) {
         String title = event.getTitle();
         String content = event.getContent();
+        String price = event.getPrice();
+
         Bitmap logo = event.getBitmap();
         String time = Constant.TIME;
         Map<String, Object> listem = new HashMap<String, Object>();
-        listem.put("logo", logo);
+        listem.put("bitmap", logo);
         listem.put("title", title);
         listem.put("content", content);
+        listem.put("type", "usedgood");
+        listem.put("price",price);
         listem.put("time",time);
         getListems().add(listem);
         simplead.notifyDataSetChanged();
@@ -64,7 +68,7 @@ public class  UsedActivity extends PublishBase {
 
         simplead = initAdapter(UsedActivity.this);
         baselv.setAdapter(simplead);
-        setListener(UsedActivity.this, baselv);
+        setListener(UsedActivity.this, baselv,getListems());
     }
 
     public static void actionStart(Context context) {

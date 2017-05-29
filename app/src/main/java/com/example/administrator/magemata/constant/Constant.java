@@ -15,7 +15,7 @@ public class Constant {
     static public String TITLE="商品名称";
     static public String CONTENT="在这里输入内容";
     static public String TIME="2017-04-30 12:00:23";
-    static public int LOGO= R.drawable.photo;
+    static public int LOGO= R.mipmap.logo2;
 
     static public String LOST_TITLE="校园卡";
     static public String LOST_CONTENT="在某某丢失了校园卡很着急，请联系";

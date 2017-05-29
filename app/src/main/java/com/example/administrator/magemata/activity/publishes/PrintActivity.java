@@ -36,7 +36,7 @@ public class PrintActivity extends PublishBase {
         baselv = (ListView) findViewById(R.id.base_lv);
         simplead = initAdapter_print(PrintActivity.this);
         baselv.setAdapter(simplead);
-        setListener(PrintActivity.this, baselv);
+        setListener(PrintActivity.this, baselv,getListems());
 
 
     }
@@ -52,7 +52,7 @@ public class PrintActivity extends PublishBase {
         Bitmap logo = event.getBitmap();
         String time = Constant.TIME;
         Map<String, Object> listem = new HashMap<String, Object>();
-        listem.put("logo", logo);
+        listem.put("bitmap", logo);
         listem.put("title", title);
         listem.put("content", content);
         listem.put("time",time);

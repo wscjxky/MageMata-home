@@ -36,7 +36,7 @@ public class JoinGoodActivity extends PublishBase {
         Bitmap logo = event.getBitmap();
         String time = Constant.TIME;
         Map<String, Object> listem = new HashMap<String, Object>();
-        listem.put("logo", logo);
+        listem.put("bitmap", logo);
         listem.put("title", title);
         listem.put("content", content);
         listem.put("time",time);
@@ -52,7 +52,7 @@ public class JoinGoodActivity extends PublishBase {
 
         simplead = initAdapter(JoinGoodActivity.this);
         baselv.setAdapter(simplead);
-        setListener(JoinGoodActivity.this, baselv);
+        setListener(JoinGoodActivity.this, baselv,getListems());
     }
 
     public static void actionStart(Context context) {

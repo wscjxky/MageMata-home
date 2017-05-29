@@ -41,6 +41,8 @@ public class AddItemBase extends AppCompatActivity {
     private EditText addfound_et_name;
     private Button addfound_but_submit;
     private TextView addprint_tv_filename;
+    private EditText addfound_et_phone;
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class AddItemBase extends AppCompatActivity {
                 setContentView(R.layout.activity_addfound);
                 break;
         }
-
+        addfound_et_phone=(EditText)findViewById(R.id.addfound_et_phone) ;
         addfound_iv_addimg=(ImageView)findViewById(R.id.addfound_iv_addimg);
         addfound_et_content=(EditText)findViewById(R.id.addfound_et_content) ;
         addfound_et_name=(EditText)findViewById(R.id.addfound_et_name) ;
@@ -112,12 +114,21 @@ public class AddItemBase extends AppCompatActivity {
         ImageMessage imageMessage=new ImageMessage();
         imageMessage.setTitle(username);imageMessage.setContent(content);imageMessage.setBitmap(logo);
 
+
+
         if(Objects.equals(getIntent().getStringExtra("type"), "found")){
             Intent intent=new Intent();
             intent.putExtra("title",username);
             intent.putExtra("content",content);
             intent.putExtra("logo",logo);
             setResult(101,intent);}
+        else if(Objects.equals(getIntent().getStringExtra("type"), "usedgood")) {
+            imageMessage.setType("usedgood");
+            imageMessage.setPrice(addfound_et_phone.getText().toString());
+            Log.e("usedGood","ok");
+            EventBus.getDefault().post(imageMessage);
+
+        }
         else
             EventBus.getDefault().post(imageMessage);
         this.finish();
