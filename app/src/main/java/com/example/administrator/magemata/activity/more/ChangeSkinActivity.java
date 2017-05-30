@@ -23,7 +23,7 @@ public class ChangeSkinActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_changeskin);
         mSettingManager = new SkinSettingManager(this);
         mSettingManager.initSkins();
-
+        findViewById(R.id.changeskin_but_changecolor).setOnClickListener(this);
         findViewById(R.id.imageView1).setOnClickListener(this);
         findViewById(R.id.imageView2).setOnClickListener(this);
         findViewById(R.id.imageView3).setOnClickListener(this);
@@ -35,6 +35,12 @@ public class ChangeSkinActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+//            case R.id.changeskin_but_changecolor:
+//                new ColorChooserDialog.Builder(this, R.string.color_palette)
+//                        .titleSub(R.string.colors)
+//                        .preselect(primaryPreselect)
+//                        .show();
+//                break;
             case R.id.imageView1:
                 mSettingManager.toggleSkins(0);
 //                title.setBackgroundResource(R.drawable.color7);
