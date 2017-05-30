@@ -83,9 +83,6 @@ public class PublishBase extends AppCompatActivity{
         SimpleAdapter simplead;
         listems = new ArrayList<Map<String, Object>>();
         listem = new HashMap<String, Object>();
-        Resources res=getResources();
-        Bitmap bmp= BitmapFactory.decodeResource(res,Constant.LOGO);
-        listem.put("bitmap",bmp);
         listem.put("title", "打印信息");
         listem.put("content","彩印，文件名");
         listem.put("time",Constant.TIME);
