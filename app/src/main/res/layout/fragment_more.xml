@@ -49,7 +49,7 @@
             android:clickable="true"
            >
             <TextView style="@style/usertext"
-                android:text="个人信息"
+                android:text="个人主页"
 
                 />
             <ImageView style="@style/img_arrow"/>

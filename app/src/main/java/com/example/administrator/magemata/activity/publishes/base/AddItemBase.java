@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.example.administrator.magemata.Events.ImageMessage;
 import com.example.administrator.magemata.R;
-import com.example.administrator.magemata.adapter.SkinSettingManager;
+import com.example.administrator.magemata.util.SkinManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -185,10 +185,10 @@ public class AddItemBase extends AppCompatActivity {
         context.startActivity(intent);
     }
     @Override
-    protected void onResume() {
+    protected void onResume(){
+        SkinManager skinManager=new SkinManager(this);
+        skinManager.getSkin();
         super.onResume();
-        Log.e("Resume","pk");
-        SkinSettingManager mSettingManager = new SkinSettingManager(this);
-        mSettingManager.initSkins();
     }
+
 }

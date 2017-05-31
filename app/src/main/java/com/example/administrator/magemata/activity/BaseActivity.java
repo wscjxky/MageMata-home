@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.administrator.magemata.R;
-import com.example.administrator.magemata.adapter.SkinSettingManager;
+import com.example.administrator.magemata.util.SkinManager;
 
 import org.xutils.x;
 
@@ -18,10 +18,10 @@ import butterknife.ButterKnife;
 
 public class BaseActivity extends AppCompatActivity {
     @Override
-    protected void onResume() {
+    protected void onResume(){
+        SkinManager skinManager=new SkinManager(this);
+        skinManager.getSkin();
         super.onResume();
-        SkinSettingManager mSettingManager = new SkinSettingManager(this);
-        mSettingManager.initSkins();
     }
 
 

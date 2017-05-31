@@ -25,8 +25,8 @@ import com.example.administrator.magemata.Events.ImageMessage;
 import com.example.administrator.magemata.R;
 import com.example.administrator.magemata.activity.publishes.LostActivity;
 import com.example.administrator.magemata.activity.publishes.UsedActivity;
-import com.example.administrator.magemata.adapter.SkinSettingManager;
 import com.example.administrator.magemata.constant.Constant;
+import com.example.administrator.magemata.util.SkinManager;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -153,9 +153,10 @@ public class PublishBase extends AppCompatActivity{
         super.onDestroy();
     }
     @Override
-    protected void onResume() {
+    protected void onResume(){
+        SkinManager skinManager=new SkinManager(this);
+        skinManager.getSkin();
         super.onResume();
-        SkinSettingManager mSettingManager = new SkinSettingManager(this);
-        mSettingManager.initSkins();
     }
+
 }

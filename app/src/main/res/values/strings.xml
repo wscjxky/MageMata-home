@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MageMata</string>
+    <string name="skinsetting_title_setcolor">定制自己喜欢的皮肤</string>
+    <string name="skinsetting_button_back">返回</string>
+    <string name="skinsetting_button_done">确定</string>
+    <string name="skinsetting_button_custom">自定义</string>
+    <string name="skinsetting_button_presets">选择器</string>
+
 </resources>

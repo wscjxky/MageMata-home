@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -24,7 +25,7 @@ import com.example.administrator.magemata.Events.CircleMessage;
 import com.example.administrator.magemata.R;
 import com.example.administrator.magemata.activity.BaseActivity;
 import com.example.administrator.magemata.activity.MychatActivity;
-import com.example.administrator.magemata.adapter.SkinSettingManager;
+import com.example.administrator.magemata.activity.more.UserInfoActivity;
 import com.example.administrator.magemata.fragment.MychatFragment;
 import com.example.administrator.magemata.model.Message;
 
@@ -115,7 +116,20 @@ public class CardActivity  extends BaseActivity {
     private void setAdapter(){
         simplead = new SimpleAdapter(CardActivity.this, listems,
                 R.layout.card_item, new String[]{"user", "comment", "time"},
-                new int[]{R.id.card_user, R.id.card_tv_content, R.id.card_time});
+                new int[]{R.id.card_user, R.id.card_tv_content, R.id.card_time}){
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            final View view = super.getView(position, convertView, parent);
+            ImageView usePortrait = (ImageView) view.findViewById(R.id.card_iv_userportrait);
+            usePortrait.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    UserInfoActivity.actionStart(CardActivity.this);
+                }
+            });
+            return view;
+        }
+    };
         commentlv.setAdapter(simplead);
     }
 

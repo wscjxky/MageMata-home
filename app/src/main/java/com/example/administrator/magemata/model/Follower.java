@@ -34,7 +34,7 @@ public class Follower {
     }
 
     public int getUserPortrait( ) {
-        return R.drawable.leak_canary_icon;
+        return R.mipmap.logo2;
     }
     public String getUserName() {
         return userName;

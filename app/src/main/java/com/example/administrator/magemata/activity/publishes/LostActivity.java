@@ -10,7 +10,7 @@ import android.util.Log;
 
 import com.example.administrator.magemata.R;
 import com.example.administrator.magemata.activity.publishes.pubfragment.LostAdapter;
-import com.example.administrator.magemata.adapter.SkinSettingManager;
+import com.example.administrator.magemata.util.SkinManager;
 import com.lhh.apst.library.AdvancedPagerSlidingTabStrip;
 
 /**
@@ -57,10 +57,10 @@ public class LostActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
     @Override
-    protected void onResume() {
+    protected void onResume(){
+        SkinManager skinManager=new SkinManager(this);
+        skinManager.getSkin();
         super.onResume();
-        Log.e("Resume","pk");
-        SkinSettingManager mSettingManager = new SkinSettingManager(this);
-        mSettingManager.initSkins();
     }
+
 }

@@ -24,6 +24,7 @@ import android.widget.VideoView;
 import com.example.administrator.magemata.Events.CardMessage;
 import com.example.administrator.magemata.R;
 
+import com.example.administrator.magemata.activity.BaseActivity;
 import com.example.administrator.magemata.activity.more.WalletActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,7 +38,7 @@ import java.util.Objects;
  * Created by Administrator on 2017/4/30.
  */
 
-public class AddCardActivity extends AppCompatActivity {
+public class AddCardActivity extends BaseActivity {
     private int VIDEO_REQUEST_GET = 300 ;
     private  int PHOTO_REQUEST_GALLERY = 100 ;
     private  int PHOTO_REQUEST_CUT = 200 ;

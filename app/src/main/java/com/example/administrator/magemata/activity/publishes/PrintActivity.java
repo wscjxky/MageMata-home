@@ -18,6 +18,8 @@ import com.example.administrator.magemata.constant.Constant;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;

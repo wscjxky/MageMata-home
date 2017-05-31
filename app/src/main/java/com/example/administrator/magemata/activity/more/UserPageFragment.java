@@ -21,6 +21,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.administrator.magemata.R;
 import com.example.administrator.magemata.activity.MychatActivity;
 import com.example.administrator.magemata.adapter.FollowercyAdapter;
+import com.example.administrator.magemata.fragment.MychatFragment;
 import com.example.administrator.magemata.model.Follower;
 
 /**
@@ -87,6 +88,7 @@ public class UserPageFragment extends Fragment {
         mFollowerAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MychatFragment.ADDUSER=true;
                 MychatActivity.actionStart(activity);
             }
         });

@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -29,6 +30,7 @@ import com.example.administrator.magemata.activity.BaseActivity;
 import com.example.administrator.magemata.activity.MainActivity;
 import com.example.administrator.magemata.activity.MychatActivity;
 import com.example.administrator.magemata.adapter.MainAdapter;
+import com.example.administrator.magemata.fragment.MychatFragment;
 import com.example.administrator.magemata.model.User;
 import com.lhh.apst.library.AdvancedPagerSlidingTabStrip;
 
@@ -160,6 +162,7 @@ public class UserInfoActivity extends BaseActivity implements AppBarLayout.OnOff
     }
     @Event(value = R.id.userinfo_btn_chat,type = View.OnClickListener.class)
     private void startChat(View view){
+        MychatFragment.ADDUSER=true;
         MychatActivity.actionStart(UserInfoActivity.this);
     }
     @Event(value = R.id.userinfo_profile_backdrop,type = View.OnClickListener.class)

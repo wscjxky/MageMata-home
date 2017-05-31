@@ -23,6 +23,7 @@ import com.example.administrator.magemata.R;
 import com.example.administrator.magemata.activity.publishes.base.AddItemBase;
 import com.example.administrator.magemata.activity.publishes.base.InfoBase;
 import com.example.administrator.magemata.constant.Constant;
+import com.example.administrator.magemata.util.SkinManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -46,6 +47,7 @@ public class FoundFragment extends Fragment {
     private List<Map<String, Object>> listems;
     private SimpleAdapter simplead;
     private Activity activity;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.example.administrator.magemata.R;
 import com.example.administrator.magemata.activity.MychatActivity;
-import com.example.administrator.magemata.adapter.SkinSettingManager;
 import com.example.administrator.magemata.fragment.MychatFragment;
 import com.example.administrator.magemata.model.Message;
+import com.example.administrator.magemata.util.SkinManager;
 
 import java.util.Objects;
 
@@ -80,9 +80,10 @@ public class InfoBase extends AppCompatActivity {
         context.startActivity(intent);
     }
     @Override
-    protected void onResume() {
+    protected void onResume(){
+        SkinManager skinManager=new SkinManager(this);
+        skinManager.getSkin();
         super.onResume();
-        SkinSettingManager mSettingManager = new SkinSettingManager(this);
-        mSettingManager.initSkins();
     }
+
 }

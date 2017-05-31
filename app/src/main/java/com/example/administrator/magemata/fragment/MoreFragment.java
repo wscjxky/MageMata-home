@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 
 import com.example.administrator.magemata.Events.UserInfoMessage;
 import com.example.administrator.magemata.R;
-import com.example.administrator.magemata.activity.more.MoreDetailActivity;
 import com.example.administrator.magemata.activity.more.OtherActivity;
 import com.example.administrator.magemata.activity.more.UserInfoActivity;
 import com.example.administrator.magemata.activity.more.WalletActivity;

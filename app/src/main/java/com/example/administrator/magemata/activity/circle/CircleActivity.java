@@ -8,10 +8,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -27,6 +29,7 @@ import com.example.administrator.magemata.Events.CardMessage;
 import com.example.administrator.magemata.Interface.NoScrollListView;
 import com.example.administrator.magemata.R;
 import com.example.administrator.magemata.activity.BaseActivity;
+import com.example.administrator.magemata.activity.more.UserInfoActivity;
 import com.example.administrator.magemata.constant.Constant;
 
 import org.greenrobot.eventbus.EventBus;
@@ -105,18 +108,30 @@ public class CircleActivity extends BaseActivity {
 
 
     private void setAdapter() {
-        String content="我去问哪里出了山河谷哪里有卖，万能的东西，如果女票有点时候会想到苏打粉蔷薇";
+        String content = "我去问哪里出了山河谷哪里有卖，万能的东西，如果女票有点时候会想到苏打粉蔷薇";
         listems = new ArrayList<Map<String, Object>>();
-        for(int i=0;i<10;i++) {
+        for (int i = 0; i < 10; i++) {
             listem = new HashMap<String, Object>();
             listem.put("type", "文字");
             listem.put("content", content);
             listems.add(listem);
         }
         simplead = new SimpleAdapter(CircleActivity.this, listems,
-                R.layout.card_item, new String[]{"type", "content","bitmap","coin"},
-                new int[]{R.id.card_tv_type, R.id.card_tv_content,R.id.card_item_image,R.id.card_tv_coin}
-        );
+                R.layout.card_item, new String[]{"type", "content", "bitmap", "coin"},
+                new int[]{R.id.card_tv_type, R.id.card_tv_content, R.id.card_item_image, R.id.card_tv_coin}) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                final View view = super.getView(position, convertView, parent);
+                ImageView usePortrait = (ImageView) view.findViewById(R.id.card_iv_userportrait);
+                usePortrait.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        UserInfoActivity.actionStart(CircleActivity.this);
+                    }
+                });
+                return view;
+            }
+        };
         simplead.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Object data,
@@ -135,6 +150,7 @@ public class CircleActivity extends BaseActivity {
     }
 
     private void setListener(){
+
         cards_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

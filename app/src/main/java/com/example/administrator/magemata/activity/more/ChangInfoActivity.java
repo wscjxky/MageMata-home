@@ -6,18 +6,24 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.color.ColorChooserDialog;
+import com.afollestad.materialdialogs.util.DialogUtils;
 import com.example.administrator.magemata.Events.CardMessage;
 import com.example.administrator.magemata.Events.ImageMessage;
 import com.example.administrator.magemata.Events.UserInfoMessage;
 import com.example.administrator.magemata.R;
 import com.example.administrator.magemata.activity.BaseActivity;
 import com.example.administrator.magemata.activity.circle.AddCardActivity;
+import com.example.administrator.magemata.util.SkinManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.view.annotation.ViewInject;
@@ -29,14 +35,24 @@ import java.util.Objects;
  * Created by Administrator on 2017/5/26.
  */
 
-public class ChangInfoActivity extends BaseActivity{
+public class ChangInfoActivity extends AppCompatActivity implements ColorChooserDialog.ColorCallback{
     private ImageView addimg;
     private Button changeskin;
     private Button submit;
+    private int primaryPreselect;
+    private SkinManager skinManager;
+
     @ViewInject(R.id.changinfo_et_name)
     EditText name;
     @ViewInject(R.id.changinfo_et_introduce)
     EditText introduce;
+
+    @Override
+    protected void onResume(){
+        skinManager=new SkinManager(this);
+        skinManager.getSkin();
+        super.onResume();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +97,15 @@ public class ChangInfoActivity extends BaseActivity{
         startActivityForResult(intent, 200);
     }
     public void changeSkin(){
-        ChangeSkinActivity.actionStart(this);
+        primaryPreselect = skinManager.getColor();
+        new ColorChooserDialog.Builder(this, R.string.skinsetting_title_setcolor)
+                .titleSub(R.string.skinsetting_title_setcolor)
+                .presetsButton(R.string.skinsetting_button_presets)
+                .backButton(R.string.skinsetting_button_back)
+                .doneButton(R.string.skinsetting_button_done)
+                .customButton(R.string.skinsetting_button_custom)
+                .preselect(primaryPreselect)
+                .show();
     }
     public void submit(){
         addimg.setDrawingCacheEnabled(true);
@@ -155,4 +179,15 @@ public class ChangInfoActivity extends BaseActivity{
         dialog.show();
     }
 
+    @Override
+    public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
+        primaryPreselect = selectedColor;
+        SkinManager skin = new SkinManager(ChangInfoActivity.this);
+        skin.setSkin(selectedColor);
+        skin.getSkin();
+    }
+    @Override
+    public void onColorChooserDismissed(@NonNull ColorChooserDialog dialog) {
+
+    }
 }
