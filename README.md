@@ -5,9 +5,8 @@ MageMata
 Material Design, RxJava & Retrofit
 
 本demo包含以下知识点：
-
 - [Butter Knife](http://jakewharton.github.io/butterknife/)：通过注解绑定 View
-- [Glide](https://github.com/bumptech/glide) 图片加载
+- [picasso](https://github.com/bumptech/glide) 强大的Android图片下载缓存库
 - [Realm](https://realm.io) 数据库与 [Retrofit](https://square.github.io/retrofit/) RESTful API 框架的配合
 - Android Design Support Library 中的 `CoordinatorLayout`
 - [rxjava:1.1.0](https://github.com/ReactiveX/RxJava)a library for composing asynchronous and event-based programs using observable sequences for the Java VM
