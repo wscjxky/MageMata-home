@@ -15,7 +15,13 @@ Material Design, RxJava & Retrofit
 - [BaseRecyclerViewAdapterHelper:2.9.16](https://github.com/CymChad/BaseRecyclerViewAdapterHelper/)
 
 
-<img src="https://github.com/xingrz/GankMeizhi/raw/master/screenshots/1.jpg" width="340" />
+<img src="https://github.com/wscjxky/MageMata-home/blob/master/Screenshot_2017-06-09-17-42-36.png" width="340" />
+<img src="https://github.com/wscjxky/MageMata-home/blob/master/Screenshot_2017-06-09-17-43-32.png" width="340" />
+
+
+## demo下载
+
+- [MageMata](https://github.com/wscjxky/MageMata-home/blob/master/app/MageMata.apk）
 
 ## 使用要求
 
@@ -32,7 +38,7 @@ Material Design, RxJava & Retrofit
 ## 致谢
 
 - [@青云客智能聊天机器人](http://api.qingyunke.com/)
-
+- If you have any questions or want to make friends with me, you can write to me: wsgzcjxky@gmail.com
 ## 开源协议
 
 [Apache License 2.0](LICENSE)
