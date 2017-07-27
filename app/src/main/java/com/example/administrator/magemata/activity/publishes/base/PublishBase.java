@@ -52,7 +52,7 @@ public class PublishBase extends AppCompatActivity{
         }
     }
 
-    public  SimpleAdapter initAdapter(Context context){
+    public  SimpleAdapter initAdapter(Context context, boolean usedgood){
         Map<String, Object> listem;
         SimpleAdapter simplead;
         listems = new ArrayList<Map<String, Object>>();
@@ -60,6 +60,11 @@ public class PublishBase extends AppCompatActivity{
         listem.put("title", Constant.TITLE);
         listem.put("content",Constant.CONTENT);
         listem.put("time",Constant.TIME);
+        if(usedgood){
+            listem.put("type", "usedgood");
+            listem.put("price", "0");
+
+        }
         listems.add(listem);
         simplead = new SimpleAdapter(context, listems,
                 R.layout.imgitem_base, new String[]{"bitmap","title", "content", "time"},

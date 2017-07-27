@@ -104,6 +104,8 @@ public class ChangInfoActivity extends AppCompatActivity implements ColorChooser
                 .backButton(R.string.skinsetting_button_back)
                 .doneButton(R.string.skinsetting_button_done)
                 .customButton(R.string.skinsetting_button_custom)
+                .cancelButton(R.string.
+                        skinsetting_button_back)
                 .preselect(primaryPreselect)
                 .show();
     }

@@ -66,10 +66,12 @@ public class  UsedActivity extends PublishBase {
         setContentView(R.layout.listview_base);
         baselv = (ListView) findViewById(R.id.base_lv);
 
-        simplead = initAdapter(UsedActivity.this);
+        simplead = initAdapter(UsedActivity.this,true);
         baselv.setAdapter(simplead);
         setListener(UsedActivity.this, baselv,getListems());
     }
+
+
 
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, UsedActivity.class);

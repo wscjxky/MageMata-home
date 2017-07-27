@@ -3,22 +3,18 @@ package com.example.administrator.magemata.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.administrator.magemata.Events.ImageMessage;
 import com.example.administrator.magemata.R;
+import com.example.administrator.magemata.activity.publishes.Delivery.DeliveryActivity;
 import com.example.administrator.magemata.activity.publishes.JoinGoodActivity;
 import com.example.administrator.magemata.activity.publishes.LostActivity;
 import com.example.administrator.magemata.activity.publishes.PrintActivity;
 import com.example.administrator.magemata.activity.publishes.UsedActivity;
 
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/4/24.
@@ -59,6 +55,12 @@ public class PublishFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 PrintActivity.actionStart(activity);
+            }
+        });
+        mview.findViewById(R.id.publish_iv_findwork).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DeliveryActivity.actionStart(activity);
             }
         });
     }

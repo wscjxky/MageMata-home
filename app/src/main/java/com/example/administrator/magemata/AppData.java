@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.administrator.magemata.model.User;
 import com.example.administrator.magemata.util.Permission;
+import com.mob.MobApplication;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.xutils.x;
@@ -17,7 +18,7 @@ import org.xutils.x;
  * Created by Administrator on 2017/4/25.
  */
 
-public class AppData extends Application{
+public class AppData extends MobApplication {
 
     @Override
     public void onCreate() {
@@ -29,6 +30,7 @@ public class AppData extends Application{
 //        }
 //        LeakCanary.install(this);
         x.Ext.init(this);
+
         // Normal app init code...
     }
 }

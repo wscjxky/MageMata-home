@@ -3,7 +3,9 @@ package com.example.administrator.magemata.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,18 +20,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.administrator.magemata.Events.ImageMessage;
 import com.example.administrator.magemata.R;
 import com.example.administrator.magemata.fragment.MychatFragment;
+import com.example.administrator.magemata.model.Dialog;
 import com.example.administrator.magemata.model.Message;
 import com.example.administrator.magemata.model.User;
 import com.example.administrator.magemata.util.KeyBoardUtil;
+import com.example.administrator.magemata.util.PublicMethod;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +47,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +60,7 @@ import static com.example.administrator.magemata.fragment.MychatFragment.RECEIVE
 import static com.example.administrator.magemata.fragment.MychatFragment.SENDER;
 
 public class MychatActivity extends BaseActivity implements MessageInput.InputListener  ,MessageInput.AttachmentsListener{
+    private int creatAt=0;
 
     protected MessagesListAdapter<Message> messagesAdapter;
     @BindView(R.id.mychat_messagesList)
@@ -60,17 +71,28 @@ public class MychatActivity extends BaseActivity implements MessageInput.InputLi
     FrameLayout showFrameLayout;
     @BindView(R.id.mychat_attach_fl)
     FrameLayout emojiFrameLayout;
-
+    private  Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mychat);
         ButterKnife.bind(this);
         emojiFrameLayout.setVisibility(View.GONE);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         initAdapter();
     }
-
-
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();//这里我们不进行eventbus订阅事件的注销
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky =true)
+    public void onMessageEvent(Dialog dialo) {
+        dialog=dialo;
+        EventBus.getDefault().removeStickyEvent(dialo);
+    }
     @OnClick(R.id.imageButton)
     public void sendImg(){
         Message message=new Message("2",SENDER,"图片测试");
@@ -79,12 +101,19 @@ public class MychatActivity extends BaseActivity implements MessageInput.InputLi
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean onSubmit(CharSequence input) {
         messagesAdapter.addToStart(
                 new Message("0", SENDER, input.toString()),true);
         try {
-            Robot_Get(input.toString());
+            if(Objects.equals(dialog.getId(), "0")){
+                Robot_Get(input.toString());}
+            else if(Objects.equals(dialog.getId(), "2")) {
+                ImChat_Get(input.toString()) ;
+            }
+            else
+                messagesAdapter.addToStart(new Message("1", RECEIVER, input.toString()),true);
         } catch (IOException e) {
             e.printStackTrace();
             return true;
@@ -92,6 +121,66 @@ public class MychatActivity extends BaseActivity implements MessageInput.InputLi
 
         return true;
     }
+
+    private void ImChat_Get(String input) {
+        RequestParams requestParams = new RequestParams("http://47.94.251.202/api/index.php/chat");
+        x.http().get(requestParams, new Callback.CacheCallback<JSONArray>() {
+            @Override
+            public void onSuccess(JSONArray jsonArray) {
+                try {
+                    if( creatAt<jsonArray.length()) {
+                        for (int i = creatAt; i < jsonArray.length()-1; i++) {
+                            String content = jsonArray.getJSONObject(i).getString("content");
+                            messagesAdapter.addToStart(
+                                    new Message(Integer.toString(i), OTHER, content), true);
+                        }
+                    }
+                    creatAt = jsonArray.length();
+                    Log.e("Acrwq",creatAt+"");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                PublicMethod.showMessageDialog(MychatActivity.this,"接收不到数据,请检查网络");
+            }
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+            @Override
+            public void onFinished() {
+            }
+            @Override
+            public boolean onCache(JSONArray result) {
+                return false;
+            }
+        });
+        RequestParams requestParam = new RequestParams("http://47.94.251.202/api/index.php/chat");
+        requestParam.addBodyParameter("content",input);
+        x.http().post(requestParam, new Callback.CacheCallback<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                PublicMethod.showToast(MychatActivity.this,"发送成功");
+            }
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                PublicMethod.showMessageDialog(MychatActivity.this,"接收不到数据,请检查网络");
+            }
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+            @Override
+            public void onFinished() {
+            }
+            @Override
+            public boolean onCache(JSONObject result) {
+                return false;
+            }
+        });
+
+    }
+
     private void Robot_Get(String content) throws IOException {
         RequestParams requestParams = new RequestParams("http://api.qingyunke.com/api.php?key=free&appid=0&msg="+content);
         x.http().get(requestParams, new Callback.CacheCallback<JSONObject>() {

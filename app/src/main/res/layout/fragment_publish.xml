@@ -64,7 +64,7 @@
         android:layout_alignLeft="@+id/textView3"
         android:layout_alignStart="@+id/textView3"
         android:layout_marginTop="23dp"
-        android:id="@+id/imageView" />
+        android:id="@+id/publish_iv_findwork" />
 
     <ImageView
         android:layout_height="100dp"
@@ -85,10 +85,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_marginTop="18dp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignRight="@+id/imageView"
-        android:layout_alignEnd="@+id/imageView"
-        android:id="@+id/textView10" />
+        android:id="@+id/textView10"
+        android:layout_below="@+id/publish_iv_findwork"
+        android:layout_alignRight="@+id/publish_iv_findwork"
+        android:layout_alignEnd="@+id/publish_iv_findwork" />
 
     <ImageView
         android:layout_height="100dp"

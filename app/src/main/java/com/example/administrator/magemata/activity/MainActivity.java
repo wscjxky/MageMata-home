@@ -27,8 +27,7 @@ import com.lhh.apst.library.AdvancedPagerSlidingTabStrip;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;

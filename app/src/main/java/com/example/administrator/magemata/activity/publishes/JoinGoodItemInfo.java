@@ -68,7 +68,6 @@ public class JoinGoodItemInfo  extends BaseActivity{
         TOTALPRICE=Integer.valueOf(event.getTotalPrice());
         remainprice.setText(event.remainPrice());
         EventBus.getDefault().removeStickyEvent(event);
-
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshPrice(JoinGoodCustomer event) {

@@ -6,4 +6,8 @@
     <string name="skinsetting_button_custom">自定义</string>
     <string name="skinsetting_button_presets">选择器</string>
 
+    <string name="address">选择收货地址</string>
+    <string name="addaddress">添加收货地址</string>
+
+    <string name="progress">请等待</string>
 </resources>

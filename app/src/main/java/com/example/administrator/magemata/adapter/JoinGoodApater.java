@@ -1,5 +1,8 @@
 package com.example.administrator.magemata.adapter;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.administrator.magemata.R;
@@ -14,6 +17,7 @@ import java.util.List;
 
 public class JoinGoodApater extends BaseQuickAdapter<JoinGood, BaseViewHolder> {
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public JoinGoodApater() {
         super(R.layout.recyclelist_item_joingood, getSampleData());
     }
@@ -28,6 +32,7 @@ public class JoinGoodApater extends BaseQuickAdapter<JoinGood, BaseViewHolder> {
         helper.setChecked(R.id.joingood_item_checkbox,item.isEnough());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private  static List<JoinGood> getSampleData() {
         List<JoinGood> list = new ArrayList<>();
         JoinGood status = new JoinGood();

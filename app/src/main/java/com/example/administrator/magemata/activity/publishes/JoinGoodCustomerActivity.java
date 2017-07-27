@@ -3,10 +3,13 @@ package com.example.administrator.magemata.activity.publishes;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +18,9 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
+import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.example.administrator.magemata.R;
 import com.example.administrator.magemata.activity.BaseActivity;
 import com.example.administrator.magemata.activity.MychatActivity;
@@ -24,6 +30,7 @@ import com.example.administrator.magemata.adapter.JoinGood;
 import com.example.administrator.magemata.adapter.JoinGoodApater;
 import com.example.administrator.magemata.adapter.JoinGoodCustomer;
 import com.example.administrator.magemata.adapter.JoinGoodCustomerAdapter;
+import com.example.administrator.magemata.util.PublicMethod;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.view.annotation.Event;
@@ -38,6 +45,8 @@ public class JoinGoodCustomerActivity  extends BaseActivity{
     @ViewInject(R.id.joingood_rv_baselist)
     private RecyclerView mRecyclerView;
     private JoinGoodCustomerAdapter mFollowerAdapter;
+    private ItemTouchHelper mItemTouchHelper;
+    private ItemDragAndSwipeCallback mItemDragAndSwipeCallback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +59,41 @@ public class JoinGoodCustomerActivity  extends BaseActivity{
     private void initRecyclerView() {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(JoinGoodCustomerActivity.this));
+
         mFollowerAdapter = new JoinGoodCustomerAdapter();
+
         mFollowerAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             if (view.getId()==R.id.customer_item_portrait)
                 MychatActivity.actionStart(JoinGoodCustomerActivity.this);
         });
         mFollowerAdapter.openLoadAnimation();
+
+        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
+            @Override
+            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
+            }
+
+            @Override
+            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
+            }
+            @Override
+            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
+                PublicMethod.showConfirmDialog(JoinGoodCustomerActivity.this,"确定要取消凑单吗");
+            }
+            @Override
+            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
+                canvas.drawColor(ContextCompat.getColor(JoinGoodCustomerActivity.this, R.color.banana));
+            }
+        };
+        mItemDragAndSwipeCallback = new ItemDragAndSwipeCallback(mFollowerAdapter);
+        mItemTouchHelper = new ItemTouchHelper(mItemDragAndSwipeCallback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+        mFollowerAdapter.enableSwipeItem();
+        mFollowerAdapter.setOnItemSwipeListener(onItemSwipeListener);
+
+
         mRecyclerView.setAdapter(mFollowerAdapter);
+
     }
 
     public static void actionStart(Context context) {

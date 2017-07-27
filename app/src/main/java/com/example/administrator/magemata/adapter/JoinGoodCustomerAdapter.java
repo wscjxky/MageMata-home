@@ -2,6 +2,7 @@ package com.example.administrator.magemata.adapter;
 
 import android.graphics.Paint;
 
+import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.administrator.magemata.R;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by Administrator on 2017/5/30.
  */
 
-public class JoinGoodCustomerAdapter extends BaseQuickAdapter<JoinGoodCustomer, BaseViewHolder> {
+public class JoinGoodCustomerAdapter extends BaseItemDraggableAdapter<JoinGoodCustomer, BaseViewHolder> {
 
     public JoinGoodCustomerAdapter() {
         super(R.layout.recyclelist_cv_joingoodcustomer, getSampleData(3));

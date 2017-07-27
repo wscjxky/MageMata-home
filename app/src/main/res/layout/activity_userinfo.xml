@@ -60,7 +60,7 @@
         </LinearLayout>
         ​
         <LinearLayout
-            android:id="@+id/materialup.title_container"
+            android:id="@+id/title_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -127,7 +127,7 @@
         android:layout_height="96dp"
         android:layout_gravity="center_horizontal"
         android:src="@mipmap/logo2"
-        app:layout_anchor="@id/materialup.title_container"
+        app:layout_anchor="@id/title_container"
         android:elevation="8dp"
         app:layout_scrollFlags="scroll"
         app:layout_anchorGravity="top|center_horizontal"

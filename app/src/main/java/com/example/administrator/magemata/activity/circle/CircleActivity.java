@@ -1,5 +1,6 @@
 package com.example.administrator.magemata.activity.circle;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import com.example.administrator.magemata.R;
 import com.example.administrator.magemata.activity.BaseActivity;
 import com.example.administrator.magemata.activity.more.UserInfoActivity;
 import com.example.administrator.magemata.constant.Constant;
+import com.example.administrator.magemata.util.SkinManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,6 +52,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Administrator on 2017/4/29.
@@ -59,6 +63,9 @@ public class CircleActivity extends BaseActivity {
     private List<Map<String, Object>> listems;
     private SimpleAdapter simplead;
     private Map<String, Object> listem;
+    @ViewInject(R.id.toolbar)
+    private Toolbar toolbar;
+
     @ViewInject(R.id.circle_lv_content)
     private NoScrollListView cards_lv;
     @ViewInject(R.id.circle_topimg)
@@ -86,7 +93,6 @@ public class CircleActivity extends BaseActivity {
         String type = event.getType();
         String content = event.getContent();
         if(event.hasBitmap()){
-            Log.e("youtu ","tsdf");
             Bitmap bitmap =event.getBitmap();
             listem.put("bitmap", bitmap);
         }
@@ -166,6 +172,7 @@ public class CircleActivity extends BaseActivity {
     @Event(value = R.id.circle_btn_addcircle ,type=View.OnClickListener.class)
     private void showPopwindow(View mview) {
         // 利用laymoutInflater获得View
+        final Activity activity=CircleActivity.this;
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.addcard_popwin, null);
 
@@ -178,7 +185,11 @@ public class CircleActivity extends BaseActivity {
         // 实例化一个ColorDrawable颜色为半透明
 //        ColorDrawable dw = new ColorDrawable(0xb0000000);
 //        window.setBackgroundDrawable(dw);
-
+        WindowManager.LayoutParams lp = this.getWindow()
+                .getAttributes();
+        lp.alpha = 0.4f;
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        activity.getWindow().setAttributes(lp);
         // 设置popWindow的显示和消失动画
         window.setAnimationStyle(R.style.mypopwindow_anim_style);
         // 在底部显示
@@ -187,6 +198,17 @@ public class CircleActivity extends BaseActivity {
                 Gravity.CENTER, 0, 220);
         //y轴以左下偏移
         // 这里检验popWindow里的button是否可以点击
+
+    window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+        @Override
+        public void onDismiss() {
+            WindowManager.LayoutParams lp = activity.getWindow()
+                    .getAttributes();
+            lp.alpha = 1f;
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            activity.getWindow().setAttributes(lp);
+        }
+    });
         Button addReward=(Button)view.findViewById(R.id.addcard_reward);
         addReward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -237,6 +259,12 @@ public class CircleActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
-
+    @Override
+    protected void onResume(){
+        SkinManager skinManager=new SkinManager(this);
+        skinManager.getSkin();
+        toolbar.setBackgroundColor(skinManager.getColor());
+        super.onResume();
+    }
 
 }

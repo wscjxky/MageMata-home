@@ -23,6 +23,4 @@ public class BaseActivity extends AppCompatActivity {
         skinManager.getSkin();
         super.onResume();
     }
-
-
 }

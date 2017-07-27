@@ -26,6 +26,8 @@ import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -115,12 +117,12 @@ public class MychatFragment extends Fragment implements DialogsListAdapter.OnDia
         ArrayList<User> users = new ArrayList<User>();
         users.add(SENDER);
         users.add(RECEIVER);
-        Dialog dialog2 = new Dialog("1", "我是小骆", IMAGES.get(0), users, new Message("1", SENDER, "第一个单聊测试"), 2);
+        Dialog dialog2 = new Dialog("0", "我是小骆", IMAGES.get(0), users, new Message("1", SENDER, "第一个单聊测试"), 2);
         chats.add(dialog2);
-        Dialog dialog3 = new Dialog("2", "单聊", IMAGES.get(1), users, new Message("2", RECEIVER, "第一个单聊"), 99);
+        Dialog dialog3 = new Dialog("1", "单聊", IMAGES.get(1), users, new Message("2", RECEIVER, "第一个单聊"), 99);
         chats.add(dialog3);
         users.add(OTHER);
-        Dialog dialog = new Dialog("0", "测试群聊", IMAGES.get(3), users, new Message("0", SENDER, "第一个群聊测试"), 1);
+        Dialog dialog = new Dialog("2", "测试群聊", IMAGES.get(3), users, new Message("0", SENDER, "第一个群聊测试"), 1);
         chats.add(dialog);
         return chats;
     }
@@ -141,6 +143,7 @@ public class MychatFragment extends Fragment implements DialogsListAdapter.OnDia
     }
     @Override
     public void onDialogClick(Dialog dialog) {
+        EventBus.getDefault().postSticky(dialog);
         MychatActivity.actionStart(activity);
     }
     @Override

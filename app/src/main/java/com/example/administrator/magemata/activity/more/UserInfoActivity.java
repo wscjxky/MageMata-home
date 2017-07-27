@@ -14,12 +14,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.magemata.Events.ImageMessage;
@@ -32,6 +34,7 @@ import com.example.administrator.magemata.activity.MychatActivity;
 import com.example.administrator.magemata.adapter.MainAdapter;
 import com.example.administrator.magemata.fragment.MychatFragment;
 import com.example.administrator.magemata.model.User;
+import com.example.administrator.magemata.util.SkinManager;
 import com.lhh.apst.library.AdvancedPagerSlidingTabStrip;
 
 import org.greenrobot.eventbus.EventBus;
@@ -56,6 +59,10 @@ public class UserInfoActivity extends BaseActivity implements AppBarLayout.OnOff
     private boolean mIsAvatarShown = true;
     private int mMaxScrollSize;
     private boolean followed=false;
+    @ViewInject(R.id.userinfo_ll_toolbar)
+    LinearLayout toorlbar;
+    @ViewInject(R.id.title_container)
+    LinearLayout titlecontain;;
     @ViewInject(R.id.userinfo_tv_introduce)
     TextView introduce;
     @ViewInject(R.id.userinfo_tv_username)
@@ -198,8 +205,14 @@ public class UserInfoActivity extends BaseActivity implements AppBarLayout.OnOff
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
         // 裁剪框的比例，1：1
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
+        if(android.os.Build.MODEL.contains("HUAWEI")){
+            intent.putExtra("aspectX", 9998);
+            intent.putExtra("aspectY", 9999);
+        }
+        else {
+            intent.putExtra("aspectX", 1);
+            intent.putExtra("aspectY", 1);
+        }
         // 裁剪后输出图片的尺寸大小
         intent.putExtra("outputX", 250);
         intent.putExtra("outputY", 250);
@@ -220,5 +233,14 @@ public class UserInfoActivity extends BaseActivity implements AppBarLayout.OnOff
         EventBus.getDefault().unregister(this);
         Log.e("stop,","asd");
         super.onDestroy();
+    }
+    @Override
+    protected void onResume(){
+        SkinManager skinManager=new SkinManager(this);
+        skinManager.getSkin();
+        toorlbar.setBackgroundColor(skinManager.getColor());
+        tabLayout.setBackgroundColor(skinManager.getColor());
+        titlecontain.setBackgroundColor(skinManager.getColor());
+        super.onResume();
     }
 }

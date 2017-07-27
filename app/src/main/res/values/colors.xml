@@ -12,4 +12,7 @@
     <color name="text_clo">#333</color>
     <color name="white">#ffffff</color>
     <color name="blue">#419DE1</color>
+    <color name="brownred">#D3C05263</color>
+    <color name="brown">#A36D4C41</color>
+
 </resources>

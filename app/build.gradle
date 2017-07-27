@@ -15,7 +15,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     buildTypes {
         release {
@@ -63,6 +66,11 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.16'
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
+    compile 'com.youth.banner:banner:1.4.9'  //最新版本
+    compile 'com.github.mcxtzhang:AnimShopButton:V1.2.0'
+    compile name:'SMSSDK-3.0.0',ext:'aar'
+    compile name:'SMSSDKGUI-3.0.0',ext:'aar'
+    compile 'codelight.studios:android-smart-login:1.2'
 
 }
 configurations.all {
@@ -73,6 +81,11 @@ configurations.all {
                 details.useVersion '25.3.1'
             }
         }
+    }
+}
+repositories{
+    flatDir{
+        dirs 'libs' //就是你放aar的目录地址
     }
 }
 

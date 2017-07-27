@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:layout_marginBottom="1dp"
+>
+
+    <ImageView
+        android:id="@+id/rice_item_goodimg"
+        android:layout_width="60dp"
+        android:layout_height="85dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+
+        android:layout_weight="0.10" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginLeft="14dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/rice_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="砂锅居"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@android:color/black"
+        />
+
+        <TextView
+            android:id="@+id/rice_item_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="价格:"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            />
+    </LinearLayout>
+
+    <!--使用默认UI属性-->
+    <!--使用默认UI属性-->
+    <com.mcxtzhang.lib.AnimShopButton
+        android:id="@+id/rice_item_shopbut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:maxCount="3"/>
+
+
+</LinearLayout>
